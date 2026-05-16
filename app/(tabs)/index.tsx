@@ -17,7 +17,7 @@ Dimensions.get("window");
 
 export default function HomeScreen() {
   const router = useRouter();
-  const [currentTime, setCurrentTime] = useState("");
+  const [, setCurrentTime] = useState("");
 
   useEffect(() => {
     const updateTime = () => {
@@ -46,7 +46,6 @@ export default function HomeScreen() {
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerTop}>
-          
           <View style={styles.headerIcons}></View>
         </View>
 
@@ -116,8 +115,6 @@ export default function HomeScreen() {
                 style={styles.cardImage}
               />
             </TouchableOpacity>
-
-           
           </ScrollView>
         </View>
       </ScrollView>
@@ -179,7 +176,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 100,
+    paddingBottom: 0,
   },
   heroContainer: {
     marginHorizontal: 16,

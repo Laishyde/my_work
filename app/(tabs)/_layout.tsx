@@ -14,11 +14,10 @@ export default function TabLayout() {
         tabBarButton: HapticTab,
         tabBarStyle: {
           backgroundColor: "#0A1628",
-          borderTopColor: "#1a2a3a",
-          borderTopWidth: 1,
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 8,
+          height: 108,
+          paddingBottom: 0,
+          paddingTop: 14,
+          borderTopWidth: 0,
         },
         tabBarLabelStyle: {
           fontSize: 11,
@@ -47,7 +46,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="tickets"
         options={{
-          title: "No Radar",
+          title: "Ingressos",
           tabBarIcon: ({ color }) => (
             <IconSymbol size={24} name="ticket.fill" color={color} />
           ),
@@ -56,7 +55,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Meus Eventos",
+          title: "Perfil",
           tabBarIcon: ({ color }) => (
             <IconSymbol size={24} name="person.fill" color={color} />
           ),

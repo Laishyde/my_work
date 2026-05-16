@@ -21,6 +21,8 @@
       "package": "com.ticketmasterapp.app",
       "permissions": [
         "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "INTERNET",
         "ACCESS_NETWORK_STATE"
       ]
     },
@@ -53,6 +55,12 @@
       "eas": {
         "projectId": "0a16ec97-d94c-4894-8303-14895d2b88e5"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0a16ec97-d94c-4894-8303-14895d2b88e5"
     }
   }
 }
