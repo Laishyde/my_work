@@ -1,22 +1,29 @@
 {
   "expo": {
-    "name": "TicketMasterApp",
+    "name": "Eventim BR",
     "slug": "TicketMasterApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/eventin.jpg",
     "scheme": "ticketmasterapp",
+    "splash": {
+      "image": "./assets/images/eventin.jpg",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "userInterfaceStyle": "automatic",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.ticketmasterapp.app"
+      "bundleIdentifier": "com.ticketmasterapp.app",
+      "icon": "./assets/images/eventin.jpg",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "./assets/images/eventin.jpg",
+        "backgroundColor": "#ffffff"
       },
       "package": "com.ticketmasterapp.app",
       "permissions": [
@@ -28,7 +35,12 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/favicon.png",
+      "title": "Meu App",
+      "pwa": {
+        "display": "fullscreen",
+        "orientation": "portrait"
+      }
     },
     "plugins": [
       "expo-router",
@@ -61,6 +73,7 @@
     },
     "updates": {
       "url": "https://u.expo.dev/0a16ec97-d94c-4894-8303-14895d2b88e5"
-    }
+    },
+    "owner": "azume"
   }
 }
