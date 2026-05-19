@@ -1,4 +1,5 @@
 import { IconSymbol } from "@/components/ui/icon-symbol";
+import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
@@ -11,8 +12,65 @@ import {
   View,
 } from "react-native";
 
+const tickets = [
+  {
+    id: 1,
+    tab: "Ingresso 1",
+    evento: "KORN",
+    data: "Sábado · 16/mai/26 · 16:00",
+    setor: "CADEIRA SUPERIOR",
+    secao: "SUPERIOR",
+    entrada: "PORTÃO B, D",
+    valor: "R$ 365,00",
+    total: "R$ 365,00",
+    qr: "KORN-CADEIRA-SUPERIOR",
+    valorTipo: "INTEIRA",
+  },
+  {
+    id: 2,
+    tab: "Ingresso 2",
+    evento: "KORN",
+    data: "Sábado · 16/mai/26 · 16:00",
+    setor: "PISTA",
+    secao: "PISTA",
+    entrada: "PORTÃO A",
+    valor: "R$ 495,00",
+    total: "R$ 495,00",
+    qr: "KORN-PISTA",
+    valorTipo: "INTEIRA",
+  },
+  {
+    id: 3,
+    tab: "Ingresso 3",
+    evento: "KORN",
+    data: "Sábado · 16/mai/26 · 16:00",
+    setor: "CADEIRA INFERIOR",
+    secao: "INFERIOR",
+    entrada: "PORTÃO A, C, D",
+    valor: "R$ 645,00",
+    total: "R$ 645,00",
+    qr: "KORN-CADEIRA-INFERIOR",
+    valorTipo: "INTEIRA",
+  },
+  {
+    id: 4,
+    tab: "Ingresso 4",
+    evento: "KORN",
+    data: "Sábado · 16/mai/26 · 16:00",
+    setor: "PISTA PREMIUM",
+    secao: "PREMIUM",
+    entrada: "PORTÃO B",
+    valor: "R$ 995,00",
+    total: "R$ 995,00",
+    qr: "KORN-PISTA-PREMIUM",
+    valorTipo: "INTEIRA",
+  },
+];
+
 export default function TicketsScreen() {
-  const [selectedTab, setSelectedTab] = useState(0);
+  const [selectedTicket, setSelectedTicket] = useState(0);
+  const currentTicket = tickets[selectedTicket];
+  const router = useRouter();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,27 +78,30 @@ export default function TicketsScreen() {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
           <IconSymbol name="arrow.left" size={22} color="#fff" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>LINIKER | BYE BYE CAJU</Text>
+        <Text style={styles.headerTitle}>{currentTicket.evento}</Text>
       </View>
 
       {/* Tabs */}
       <View style={styles.tabsContainer}>
-        {["Ingresso 1", "Ingresso 2", "Ingresso 3"].map((tab, index) => (
+        {tickets.map((ticket, index) => (
           <TouchableOpacity
             key={index}
-            style={[styles.tab, selectedTab === index && styles.activeTab]}
-            onPress={() => setSelectedTab(index)}
+            style={[styles.tab, selectedTicket === index && styles.activeTab]}
+            onPress={() => setSelectedTicket(index)}
           >
             <Text
               style={[
                 styles.tabText,
-                selectedTab === index && styles.activeTabText,
+                selectedTicket === index && styles.activeTabText,
               ]}
             >
-              {tab}
+              {ticket.tab}
             </Text>
           </TouchableOpacity>
         ))}
@@ -56,7 +117,7 @@ export default function TicketsScreen() {
           <View style={styles.qrWhiteBox}>
             <Image
               source={{
-                uri: "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=LINIKER-BYE-BYE-CAJU",
+                uri: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${currentTicket.qr}`,
               }}
               style={styles.qrImage}
             />
@@ -71,37 +132,48 @@ export default function TicketsScreen() {
 
         {/* Event Details Card (MANTIDO EXATAMENTE AQUI APÓS O TRANSFERIR) */}
         <View style={styles.infoCard}>
-          <Text style={styles.eventTitle}>KORN</Text>
-          <Text style={styles.eventSubtitle}>Sábado · 16/mai/26 · 16:00</Text>
+          <Text style={styles.eventTitle}>{currentTicket.evento}</Text>
+          <Text style={styles.eventSubtitle}>{currentTicket.data}</Text>
 
           <View style={styles.divider} />
 
           <View style={styles.gridRow}>
             <View style={styles.gridItem}>
               <Text style={styles.label}>SETOR</Text>
-              <Text style={styles.value}>PISTA</Text>
+              <Text style={styles.value}>{currentTicket.setor}</Text>
             </View>
             <View style={styles.gridItem}>
               <Text style={styles.label}>ENTRADA</Text>
-              <Text style={styles.value}>PORTÃO A</Text>
+              <Text style={styles.value}>{currentTicket.entrada}</Text>
             </View>
           </View>
 
           <View style={styles.gridRow}>
             <View style={styles.gridItem}>
               <Text style={styles.label}>SEÇÃO</Text>
-              <Text style={styles.value}>PISTA</Text>
+              <Text style={styles.value}>{currentTicket.secao}</Text>
             </View>
           </View>
 
-          <View style={styles.divider} />
+         
 
-          
+          {/* VALOR */}
+<View style={styles.valorSection}>
+  <Text style={styles.valorLabel}>VALOR</Text>
+
+  <Text style={styles.valorTipo}>
+    {currentTicket.valorTipo}
+  </Text>
+
+  <Text style={styles.valorPreco}>
+    {currentTicket.valor}
+  </Text>
+</View>
         </View>
 
         {/* --- ADICIONADO ABAIXO DAS INFORMAÇÕES DO SHOW --- */}
-        
-       {/* Links de Ações Rápidas */}
+
+        {/* Links de Ações Rápidas */}
         <View style={styles.actionsContainer}>
           <TouchableOpacity style={styles.actionRow}>
             <IconSymbol name="calendar" size={18} color="#0091FF" />
@@ -116,9 +188,7 @@ export default function TicketsScreen() {
         </View>
 
         {/* Status de Transferência */}
-        <View style={styles.transferStatusContainer}>
-          
-        </View>
+        <View style={styles.transferStatusContainer}></View>
 
         {/* Formulário de Informações do Pedido */}
         <View style={styles.orderInfoContainer}>
@@ -148,7 +218,7 @@ export default function TicketsScreen() {
           <View style={styles.formGroup}>
             <Text style={styles.inputLabel}>Quantidade de ingressos</Text>
             <View style={styles.inputField}>
-              <Text style={styles.inputValue}>4</Text>
+              <Text style={styles.inputValue}>1</Text>
             </View>
           </View>
 
@@ -156,7 +226,7 @@ export default function TicketsScreen() {
           <View style={styles.formGroup}>
             <Text style={styles.inputLabel}>Total</Text>
             <View style={styles.inputField}>
-              <Text style={styles.inputValue}>R$ 3.825,06</Text>
+              <Text style={styles.inputValue}>{currentTicket.total}</Text>
             </View>
           </View>
 
@@ -298,6 +368,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 4,
   },
+  
   value: {
     fontSize: 16,
     fontWeight: "800",
@@ -322,7 +393,7 @@ const styles = StyleSheet.create({
   },
 
   // Novos estilos para o formulário do telefone mantidos no final
- actionsContainer: {
+  actionsContainer: {
     width: "100%",
     gap: 16,
     marginBottom: 20,
@@ -388,4 +459,31 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
   },
+valorSection: {
+  marginTop: -8,
+  paddingTop: 0,
+  alignItems: "flex-start",
+},
+valorLabel: {
+  fontSize: 11,
+  color: "#8A8A8A",
+  fontWeight: "600",
+  marginBottom: 4,
+  letterSpacing: 0.3,
+},
+
+valorTipo: {
+  fontSize: 17,
+  fontWeight: "800",
+  color: "#111",
+  textTransform: "uppercase",
+  marginBottom: 2,
+},
+
+valorPreco: {
+  fontSize: 16,
+  fontWeight: "600",
+  color: "#111",
+},
+  
 });

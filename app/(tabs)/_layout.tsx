@@ -8,16 +8,17 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#FFD700",
+        tabBarActiveTintColor: "#0091FF",
         tabBarInactiveTintColor: "#888",
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarStyle: {
-          backgroundColor: "#0A1628",
+          backgroundColor: "#fff",
           height: 108,
           paddingBottom: 0,
-          paddingTop: 14,
-          borderTopWidth: 0,
+          paddingTop: 10,
+          borderTopWidth: 1,
+          borderTopColor: "#e5e5e5",
         },
         tabBarLabelStyle: {
           fontSize: 11,
@@ -30,7 +31,7 @@ export default function TabLayout() {
         options={{
           title: "Explore",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="house.fill" color={color} />
+            <IconSymbol size={24} name="house" color={color} />
           ),
         }}
       />
@@ -44,11 +45,24 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="radar"
+        options={{
+          title: "No Radar",
+          tabBarIcon: ({ color }) => (
+            <IconSymbol
+              size={24}
+              name="antenna.radiowaves.left.and.right"
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="tickets"
         options={{
-          title: "Ingressos",
+          title: "Meus Eventos",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="ticket.fill" color={color} />
+            <IconSymbol size={24} name="ticket" color={color} />
           ),
         }}
       />
@@ -57,16 +71,7 @@ export default function TabLayout() {
         options={{
           title: "Perfil",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="person.fill" color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Perfil",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol size={24} name="person.fill" color={color} />
+            <IconSymbol size={24} name="person.circle" color={color} />
           ),
         }}
       />
