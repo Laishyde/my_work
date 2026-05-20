@@ -12,7 +12,7 @@
     "build:android:production": "eas build -p android --profile production",
     "build:ios:production": "eas build -p ios --profile production",
     "build:ios:simulator": "eas build -p ios --profile preview --simulator",
-    "export:web": "npx expo export -p web && npx copyfiles -u 1 public/**/* dist/ && node add-manifest.js"
+    "export:web": "npx expo export -p web && npx copyfiles -u 1 public/**/* dist/"
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
