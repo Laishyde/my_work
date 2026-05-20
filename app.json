@@ -4,10 +4,10 @@
     "slug": "TicketMasterApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/eventin.jpg",
+    "icon": "./assets/images/eventin.png",
     "scheme": "ticketmasterapp",
     "splash": {
-      "image": "./assets/images/eventin.jpg",
+      "image": "./assets/images/eventin.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -15,14 +15,14 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ticketmasterapp.app",
-      "icon": "./assets/images/eventin.jpg",
+      "icon": "./assets/images/eventin.png",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/eventin.jpg",
+        "foregroundImage": "./assets/images/eventin.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.ticketmasterapp.app",
@@ -35,6 +35,7 @@
     },
     "web": {
       "output": "static",
+      "publicPath": "/",
       "favicon": "./public/icon-192.png",
       "title": "Eventim BR",
       "pwa": {
