@@ -28,20 +28,14 @@
       "package": "com.ticketmasterapp.app",
       "permissions": [
         "INTERNET",
-        "ACCESS_NETWORK_STATE",
-        "INTERNET",
         "ACCESS_NETWORK_STATE"
       ]
     },
     "web": {
       "output": "static",
       "publicPath": "/",
-      "favicon": "./public/icon-192.png",
-      "title": "Eventim BR",
-      "pwa": {
-        "display": "standalone",
-        "orientation": "portrait"
-      }
+      "favicon": "./assets/images/eventin.png",
+      "title": "Eventim BR"
     },
     "plugins": [
       "expo-router",
@@ -56,7 +50,8 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      "expo-build-properties"
     ],
     "experiments": {
       "typedRoutes": true
