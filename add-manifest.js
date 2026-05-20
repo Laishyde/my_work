@@ -13,7 +13,7 @@ let html = fs.readFileSync(indexPath, "utf8");
 // Adicionar as tags de manifest e ícones após a tag <head>
 const headTag = "<head>";
 const newHeadContent = `<head>
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
   <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -71,5 +71,11 @@
       "url": "https://u.expo.dev/0a16ec97-d94c-4894-8303-14895d2b88e5"
     },
     "owner": "azume"
-  }
+  },
+  "web": {
+  "output": "static",
+  "publicPath": "/",
+  "favicon": "./assets/images/eventin.png",
+  "title": "Eventim BR"
+}
 }

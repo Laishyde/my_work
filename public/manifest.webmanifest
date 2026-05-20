@@ -1,6 +1,6 @@
 {
-  "short_name": "Eventim BR",
   "name": "Eventim BR",
+  "short_name": "Eventim BR",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -9,16 +9,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "type": "image/png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "/icon-512.png",
-      "type": "image/png",
+      "src": "./icon-512.png",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "type": "image/png"
     }
   ]
 }
