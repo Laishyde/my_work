@@ -45,19 +45,6 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="radar"
-        options={{
-          title: "No Radar",
-          tabBarIcon: ({ color }) => (
-            <IconSymbol
-              size={24}
-              name="antenna.radiowaves.left.and.right"
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="tickets"
         options={{
           title: "Meus Eventos",

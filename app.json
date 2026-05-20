@@ -35,7 +35,7 @@
     },
     "web": {
       "output": "static",
-      "favicon": "./assets/images/favicon.png",
+      "favicon": "./public/icon-192.png",
       "title": "Eventim BR",
       "pwa": {
         "display": "standalone",
