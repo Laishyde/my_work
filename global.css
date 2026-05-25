@@ -1,0 +1,23 @@
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: auto !important;
+}
+
+[data-expo-root] {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex: 1;
+}
+
+#__next {
+  height: 100%;
+}

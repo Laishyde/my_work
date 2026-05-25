@@ -26,10 +26,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ticketmasterapp.app",
-      "permissions": [
-        "INTERNET",
-        "ACCESS_NETWORK_STATE"
-      ]
+      "permissions": ["INTERNET", "ACCESS_NETWORK_STATE"]
     },
     "web": {
       "output": "static",
@@ -73,9 +70,9 @@
     "owner": "azume"
   },
   "web": {
-  "output": "static",
-  "publicPath": "/",
-  "favicon": "./assets/images/eventin.png",
-  "title": "Eventim BR"
-}
+    "output": "static",
+    "publicPath": "/",
+    "favicon": "./assets/images/eventin.png",
+    "title": "Eventim BR"
+  }
 }

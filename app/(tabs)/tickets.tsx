@@ -2,14 +2,14 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 const tickets = [
@@ -68,6 +68,7 @@ const tickets = [
 ];
 
 export default function TicketsScreen() {
+  console.log("TICKETS RENDER");
   const [selectedTicket, setSelectedTicket] = useState(0);
   const currentTicket = tickets[selectedTicket];
   const router = useRouter();
@@ -155,20 +156,14 @@ export default function TicketsScreen() {
             </View>
           </View>
 
-         
-
           {/* VALOR */}
-<View style={styles.valorSection}>
-  <Text style={styles.valorLabel}>VALOR</Text>
+          <View style={styles.valorSection}>
+            <Text style={styles.valorLabel}>VALOR</Text>
 
-  <Text style={styles.valorTipo}>
-    {currentTicket.valorTipo}
-  </Text>
+            <Text style={styles.valorTipo}>{currentTicket.valorTipo}</Text>
 
-  <Text style={styles.valorPreco}>
-    {currentTicket.valor}
-  </Text>
-</View>
+            <Text style={styles.valorPreco}>{currentTicket.valor}</Text>
+          </View>
         </View>
 
         {/* --- ADICIONADO ABAIXO DAS INFORMAÇÕES DO SHOW --- */}
@@ -368,7 +363,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginBottom: 4,
   },
-  
+
   value: {
     fontSize: 16,
     fontWeight: "800",
@@ -459,31 +454,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "500",
   },
-valorSection: {
-  marginTop: -8,
-  paddingTop: 0,
-  alignItems: "flex-start",
-},
-valorLabel: {
-  fontSize: 11,
-  color: "#8A8A8A",
-  fontWeight: "600",
-  marginBottom: 4,
-  letterSpacing: 0.3,
-},
+  valorSection: {
+    marginTop: -8,
+    paddingTop: 0,
+    alignItems: "flex-start",
+  },
+  valorLabel: {
+    fontSize: 11,
+    color: "#8A8A8A",
+    fontWeight: "600",
+    marginBottom: 4,
+    letterSpacing: 0.3,
+  },
 
-valorTipo: {
-  fontSize: 17,
-  fontWeight: "800",
-  color: "#111",
-  textTransform: "uppercase",
-  marginBottom: 2,
-},
+  valorTipo: {
+    fontSize: 17,
+    fontWeight: "800",
+    color: "#111",
+    textTransform: "uppercase",
+    marginBottom: 2,
+  },
 
-valorPreco: {
-  fontSize: 16,
-  fontWeight: "600",
-  color: "#111",
-},
-  
+  valorPreco: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#111",
+  },
 });

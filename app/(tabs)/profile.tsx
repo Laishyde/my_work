@@ -13,6 +13,7 @@ import {
 } from "react-native";
 
 export default function ProfileScreen() {
+  console.log("PROFILE RENDER");
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState<
     "tickets" | "favorites" | "history"
