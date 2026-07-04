@@ -33,6 +33,15 @@
       ]
     },
     {
+      "source": "/(icon-192|icon-512|apple-touch-icon)\\.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
+    },
+    {
       "source": "/(.*)\\.(png|jpg|jpeg|ico|svg|webp)",
       "headers": [
         {
