@@ -2,68 +2,77 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient"; // Certifique-se de ter instalado: expo install expo-linear-gradient
 
 const tickets = [
   {
     id: 1,
     tab: "Ingresso 1",
-    evento: "KORN",
-    data: "Sábado · 16/mai/26 · 16:00",
+    evento: "ENHYPEN WORLD TOUR ‘BLOOD SAGA’",
+    data: "Sábado · 04/jul/26 · 19:30",
+    headerData: "04/07/2026 - Nubank Parque",
+    local: "Nubank Parque",
     setor: "CADEIRA SUPERIOR",
     secao: "SUPERIOR",
     entrada: "PORTÃO B, D",
     valor: "R$ 365,00",
     total: "R$ 365,00",
-    qr: "KORN-CADEIRA-SUPERIOR",
-    valorTipo: "INTEIRA",
+    qr: "ENHYPEN-CADEIRA-SUPERIOR",
+    valorTipo: "INTEIRA - R$ 365",
   },
   {
     id: 2,
     tab: "Ingresso 2",
-    evento: "KORN",
-    data: "Sábado · 16/mai/26 · 16:00",
+    evento: "ENHYPEN WORLD TOUR ‘BLOOD SAGA’",
+    data: "Sábado · 04/jul/26 · 19:30",
+    headerData: "04/07/2026 - Nubank Parque",
+    local: "Nubank Parque",
     setor: "PISTA",
     secao: "PISTA",
     entrada: "PORTÃO A",
     valor: "R$ 495,00",
     total: "R$ 495,00",
-    qr: "KORN-PISTA",
-    valorTipo: "INTEIRA",
+    qr: "ENHYPEN-PISTA",
+    valorTipo: "INTEIRA - R$ 495",
   },
   {
     id: 3,
     tab: "Ingresso 3",
-    evento: "KORN",
-    data: "Sábado · 16/mai/26 · 16:00",
+    evento: "ENHYPEN WORLD TOUR ‘BLOOD SAGA’",
+    data: "Sábado · 04/jul/26 · 19:30",
+    headerData: "04/07/2026 - Nubank Parque",
+    local: "Nubank Parque",
     setor: "CADEIRA INFERIOR",
     secao: "INFERIOR",
     entrada: "PORTÃO A, C, D",
     valor: "R$ 645,00",
     total: "R$ 645,00",
-    qr: "KORN-CADEIRA-INFERIOR",
-    valorTipo: "INTEIRA",
+    qr: "ENHYPEN-CADEIRA-INFERIOR",
+    valorTipo: "INTEIRA - R$ 645",
   },
   {
     id: 4,
     tab: "Ingresso 4",
-    evento: "KORN",
-    data: "Sábado · 16/mai/26 · 16:00",
+    evento: "ENHYPEN WORLD TOUR ‘BLOOD SAGA’",
+    data: "Sábado · 04/jul/26 · 19:30",
+    headerData: "04/07/2026 - Nubank Parque",
+    local: "Nubank Parque",
     setor: "PISTA PREMIUM",
-    secao: "PREMIUM",
+    secao: "PISTA PREMIUM",
     entrada: "PORTÃO B",
     valor: "R$ 995,00",
     total: "R$ 995,00",
-    qr: "KORN-PISTA-PREMIUM",
-    valorTipo: "INTEIRA",
+    qr: "ENHYPEN-PISTA-PREMIUM",
+    valorTipo: "INTEIRA - R$ 995",
   },
 ];
 
@@ -75,37 +84,45 @@ export default function TicketsScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#000" />
+      <StatusBar barStyle="light-content" backgroundColor="#000000" />
 
-      {/* Header */}
+      {/* Cabeçalho do Evento (Header) */}
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <IconSymbol name="arrow.left" size={22} color="#fff" />
+          <IconSymbol name="chevron.left" size={20} color="#9ca3af" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>{currentTicket.evento}</Text>
+        <View style={styles.headerTextContainer}>
+          <Text style={styles.headerTitle} numberOfLines={1}>
+            {currentTicket.evento}
+          </Text>
+          <Text style={styles.headerSubtitle}>{currentTicket.headerData}</Text>
+        </View>
       </View>
 
-      {/* Tabs */}
+      {/* Abas Superiores de Seleção de Ingressos */}
       <View style={styles.tabsContainer}>
-        {tickets.map((ticket, index) => (
-          <TouchableOpacity
-            key={index}
-            style={[styles.tab, selectedTicket === index && styles.activeTab]}
-            onPress={() => setSelectedTicket(index)}
-          >
-            <Text
-              style={[
-                styles.tabText,
-                selectedTicket === index && styles.activeTabText,
-              ]}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ width: "100%" }}>
+          {tickets.map((ticket, index) => (
+            <TouchableOpacity
+              key={index}
+              style={[styles.tab, selectedTicket === index && styles.activeTab]}
+              onPress={() => setSelectedTicket(index)}
+              activeOpacity={0.8}
             >
-              {ticket.tab}
-            </Text>
-          </TouchableOpacity>
-        ))}
+              <Text
+                style={[
+                  styles.tabText,
+                  selectedTicket === index && styles.activeTabText,
+                ]}
+              >
+                {ticket.tab}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
 
       <ScrollView
@@ -113,126 +130,109 @@ export default function TicketsScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* QR Code Section */}
-        <View style={styles.qrContainer}>
-          <View style={styles.qrWhiteBox}>
+        {/* Ticket Físico Box */}
+        <View style={styles.ticketCardWrapper}>
+          
+          {/* Parte Superior: Gradiente Azul com Logo */}
+          {/* Parte Superior: Imagem de Capa do Ingresso */}
+          <View style={styles.ticketImageContainer}>
             <Image
-              source={{
-                uri: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${currentTicket.qr}`,
-              }}
-              style={styles.qrImage}
+              source={require("../../assets/images/ticket.png")}
+              style={styles.ticketCoverImage}
+              resizeMode="cover"
             />
           </View>
+
+          {/* Parte Central Branca: QR Code e Infos Principais */}
+          <View style={styles.whiteSection}>
+            <View style={styles.qrRow}>
+              
+              {/* QR Code */}
+              <View style={styles.qrImageContainer}>
+                <Image
+                  source={{
+                    uri: `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${currentTicket.qr}`,
+                  }}
+                  style={styles.qrImage}
+                />
+              </View>
+
+              {/* Lado Direito */}
+              <View style={styles.qrRightInfo}>
+                <View>
+                  <Text style={styles.cardInfoLabel}>Setor</Text>
+                  <Text style={styles.cardInfoValue} numberOfLines={1}>
+                    {currentTicket.setor}
+                  </Text>
+                </View>
+
+                <View style={{ marginTop: 12 }}>
+                  <Text style={styles.cardInfoLabel}>Acesso</Text>
+                  <Text style={styles.cardInfoValue} numberOfLines={1}>
+                    {currentTicket.entrada}
+                  </Text>
+                </View>
+
+                <TouchableOpacity style={styles.moreInfoButton} activeOpacity={0.7}>
+                  <Text style={styles.moreInfoButtonText}>Mais informações</Text>
+                </TouchableOpacity>
+              </View>
+
+            </View>
+          </View>
+
+          {/* Divisória Serrilhada / Tracejada simulada */}
+          <View style={styles.dashedContainer}>
+            <View style={styles.dashedLine} />
+          </View>
+
+          {/* Parte Inferior Cinza: Tabela Detalhada */}
+          <View style={styles.graySection}>
+            <View style={styles.gridContainer}>
+              
+              <View style={styles.gridItem}>
+                <Text style={styles.gridLabel}>Taxa</Text>
+                <Text style={styles.gridValue}>{currentTicket.valorTipo}</Text>
+              </View>
+
+              <View style={styles.gridItem} />
+
+              <View style={styles.gridItem}>
+                <Text style={styles.gridLabel}>Seção</Text>
+                <Text style={styles.gridValueBold}>{currentTicket.secao}</Text>
+              </View>
+
+              <View style={styles.gridItem}>
+                <Text style={styles.gridLabel}>Fileira</Text>
+                <Text style={styles.gridValue}>Não numerado</Text>
+              </View>
+
+              <View style={styles.gridItem}>
+                <Text style={styles.gridLabel}>Abertura</Text>
+                <Text style={styles.gridValue}>16:00</Text>
+              </View>
+
+              <View style={styles.gridItem}>
+                <Text style={styles.gridLabel}>Início</Text>
+                <Text style={styles.gridValue}>19:30</Text>
+              </View>
+
+            </View>
+          </View>
+
         </View>
 
-        {/* Transfer Button */}
-        <TouchableOpacity style={styles.transferButton}>
-          <IconSymbol name="person.badge.plus.fill" size={18} color="#fff" />
-          <Text style={styles.transferButtonText}>TRANSFERIR</Text>
-        </TouchableOpacity>
-
-        {/* Event Details Card (MANTIDO EXATAMENTE AQUI APÓS O TRANSFERIR) */}
-        <View style={styles.infoCard}>
-          <Text style={styles.eventTitle}>{currentTicket.evento}</Text>
-          <Text style={styles.eventSubtitle}>{currentTicket.data}</Text>
-
-          <View style={styles.divider} />
-
-          <View style={styles.gridRow}>
-            <View style={styles.gridItem}>
-              <Text style={styles.label}>SETOR</Text>
-              <Text style={styles.value}>{currentTicket.setor}</Text>
-            </View>
-            <View style={styles.gridItem}>
-              <Text style={styles.label}>ENTRADA</Text>
-              <Text style={styles.value}>{currentTicket.entrada}</Text>
-            </View>
-          </View>
-
-          <View style={styles.gridRow}>
-            <View style={styles.gridItem}>
-              <Text style={styles.label}>SEÇÃO</Text>
-              <Text style={styles.value}>{currentTicket.secao}</Text>
-            </View>
-          </View>
-
-          {/* VALOR */}
-          <View style={styles.valorSection}>
-            <Text style={styles.valorLabel}>VALOR</Text>
-
-            <Text style={styles.valorTipo}>{currentTicket.valorTipo}</Text>
-
-            <Text style={styles.valorPreco}>{currentTicket.valor}</Text>
-          </View>
-        </View>
-
-        {/* --- ADICIONADO ABAIXO DAS INFORMAÇÕES DO SHOW --- */}
-
-        {/* Links de Ações Rápidas */}
-        <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.actionRow}>
-            <IconSymbol name="calendar" size={18} color="#0091FF" />
-            <Text style={styles.actionTextBlue}>Inserir na Agenda</Text>
+        {/* Rodapé / Footer com Links de Ações */}
+        <View style={styles.customFooter}>
+          <TouchableOpacity style={styles.footerLink} activeOpacity={0.7}>
+            <Text style={styles.footerLinkText}>Ingresso intransferível</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.actionRow}>
-            {/* ÍCONE DE COMPARTILHAR ATUALIZADO */}
-            <IconSymbol name="share" size={18} color="#0091FF" />
-            <Text style={styles.actionTextBlue}>Compartilhar</Text>
+          <TouchableOpacity style={styles.footerButton} activeOpacity={0.7}>
+            <Text style={styles.footerButtonText}>Mais informações</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Status de Transferência */}
-        <View style={styles.transferStatusContainer}></View>
-
-        {/* Formulário de Informações do Pedido */}
-        <View style={styles.orderInfoContainer}>
-          <Text style={styles.sectionTitle}>Informações do pedido</Text>
-
-          {/* Data do pedido */}
-          <View style={styles.formGroup}>
-            <Text style={styles.inputLabel}>Data do pedido</Text>
-            <View style={styles.inputField}>
-              <Text style={styles.inputValue}>16/10/2025</Text>
-            </View>
-          </View>
-
-          {/* Número do pedido */}
-          <View style={styles.formGroup}>
-            <Text style={styles.inputLabel}>Número do pedido</Text>
-            <View style={[styles.inputField, styles.inputFieldRow]}>
-              <Text style={styles.inputValue}>1738789703</Text>
-              <TouchableOpacity activeOpacity={0.7}>
-                {/* ÍCONE DE COPIAR/COLAR ATUALIZADO */}
-                <IconSymbol name="copy" size={16} color="#A3A3A3" />
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          {/* Quantidade de ingressos */}
-          <View style={styles.formGroup}>
-            <Text style={styles.inputLabel}>Quantidade de ingressos</Text>
-            <View style={styles.inputField}>
-              <Text style={styles.inputValue}>1</Text>
-            </View>
-          </View>
-
-          {/* Total */}
-          <View style={styles.formGroup}>
-            <Text style={styles.inputLabel}>Total</Text>
-            <View style={styles.inputField}>
-              <Text style={styles.inputValue}>{currentTicket.total}</Text>
-            </View>
-          </View>
-
-          {/* Status */}
-          <View style={styles.formGroup}>
-            <Text style={styles.inputLabel}>Status</Text>
-            <View style={styles.inputField}>
-              <Text style={styles.inputValue}>Pago</Text>
-            </View>
-          </View>
-        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -241,243 +241,211 @@ export default function TicketsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#000000",
   },
   header: {
     flexDirection: "row",
     alignItems: "center",
     paddingHorizontal: 16,
-    height: 56,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#1f2937",
   },
   backButton: {
-    padding: 4,
+    paddingVertical: 4,
+    paddingRight: 16,
+  },
+  headerTextContainer: {
+    flex: 1,
   },
   headerTitle: {
-    color: "#fff",
-    fontSize: 15,
+    color: "#ffffff",
+    fontSize: 14,
     fontWeight: "700",
-    marginLeft: 24,
     textTransform: "uppercase",
+    letterSpacing: 0.5,
+  },
+  headerSubtitle: {
+    color: "#9ca3af",
+    fontSize: 12,
+    marginTop: 2,
   },
   tabsContainer: {
     flexDirection: "row",
+    backgroundColor: "#000000",
     borderBottomWidth: 0.5,
     borderBottomColor: "#333",
   },
   tab: {
-    flex: 1,
+    paddingHorizontal: 20,
     alignItems: "center",
-    paddingVertical: 12,
+    paddingVertical: 14,
     borderBottomWidth: 3,
     borderBottomColor: "transparent",
   },
   activeTab: {
-    borderBottomColor: "#EAB308",
+    borderBottomColor: "#026cdf",
   },
   tabText: {
-    color: "#888",
+    color: "#666",
     fontSize: 13,
     fontWeight: "600",
   },
   activeTabText: {
-    color: "#EAB308",
+    color: "#026cdf",
   },
   scrollView: {
     flex: 1,
   },
   scrollContent: {
-    padding: 20,
-    alignItems: "center",
+    padding: 16,
   },
-  qrContainer: {
+  ticketCardWrapper: {
     width: "100%",
-    aspectRatio: 1,
-    padding: 10,
-    marginBottom: 25,
+    borderRadius: 14,
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.4,
+    shadowRadius: 20,
+    elevation: 8,
+    marginBottom: 12,
   },
-  qrWhiteBox: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
-    flex: 1,
-    padding: 40,
-    justifyContent: "center",
+ticketImageContainer: {
+    width: "100%",
+    height: 200, // Ajuste essa altura conforme a proporção real da sua imagem mobile
+    backgroundColor: "#026cdf", // Cor de fallback enquanto a imagem carrega
+  },
+  ticketCoverImage: {
+    width: "100%",
+    height: "100%",
+  },
+  whiteSection: {
+    backgroundColor: "#ffffff",
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+  },
+  qrRow: {
+    flexDirection: "row",
     alignItems: "center",
+  },
+  qrImageContainer: {
+    width: 135,
+    height: 135,
+    flexShrink: 0,
   },
   qrImage: {
     width: "100%",
     height: "100%",
     resizeMode: "contain",
   },
-  transferButton: {
-    flexDirection: "row",
-    backgroundColor: "#2285B1",
-    width: "100%",
-    height: 50,
-    borderRadius: 6,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 8,
-    marginBottom: 25,
+  qrRightInfo: {
+    flex: 1,
+    height: 135,
+    paddingLeft: 20,
+    justifyContent: "space-between",
   },
-  transferButtonText: {
-    color: "#fff",
-    fontSize: 14,
-    fontWeight: "700",
+  cardInfoLabel: {
+    fontSize: 9,
+    textTransform: "uppercase",
     letterSpacing: 0.5,
+    color: "#d2cbc2",
+    fontWeight: "600",
+    marginBottom: 2,
   },
-  infoCard: {
-    backgroundColor: "#fff",
-    width: "100%",
-    borderRadius: 2,
-    padding: 20,
-    paddingBottom: 10,
-    marginBottom: 25, // Pequena margem para afastar do novo bloco de ações
+  cardInfoValue: {
+    fontSize: 15,
+    color: "#5f5f5f",
+    fontWeight: "400",
   },
-  eventTitle: {
-    fontSize: 20,
-    fontWeight: "900",
-    color: "#000",
-    marginBottom: 4,
+  moreInfoButton: {
+    backgroundColor: "#dff4f6",
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 6,
+    alignSelf: "flex-start",
+    marginTop: 4,
   },
-  eventSubtitle: {
-    fontSize: 13,
-    color: "#555",
-    fontWeight: "500",
-    marginBottom: 10,
+  moreInfoButtonText: {
+    color: "#1fa8b3",
+    fontSize: 12,
+    fontWeight: "400",
   },
-  divider: {
+  dashedContainer: {
+    backgroundColor: "#f8f9fa",
+    paddingHorizontal: 24,
+  },
+  dashedLine: {
+    borderWidth: 1,
+    borderColor: "#e5e7eb",
+    borderStyle: "dashed",
     height: 1,
-    backgroundColor: "#E5E5E5",
-    marginVertical: 18,
+    width: "100%",
   },
-  gridRow: {
+  graySection: {
+    backgroundColor: "#f8f9fa",
+    padding: 24,
+  },
+  gridContainer: {
     flexDirection: "row",
-    marginBottom: 20,
+    flexWrap: "wrap",
+    rowGap: 24,
   },
   gridItem: {
-    flex: 1,
+    width: "50%",
   },
-  label: {
-    fontSize: 10,
-    color: "#777",
-    fontWeight: "600",
+  gridLabel: {
+    color: "#d2cbc2",
+    fontSize: 9,
+    fontWeight: "700",
+    textTransform: "uppercase",
     marginBottom: 4,
   },
-
-  value: {
-    fontSize: 16,
-    fontWeight: "800",
-    color: "#000",
-  },
-  footerRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 10,
-  },
-  footerLabel: {
-    fontSize: 9,
-    color: "#999",
-    fontWeight: "700",
-    marginBottom: 2,
-  },
-  footerValue: {
-    fontSize: 14,
-    fontWeight: "800",
-    color: "#000",
-  },
-
-  // Novos estilos para o formulário do telefone mantidos no final
-  actionsContainer: {
-    width: "100%",
-    gap: 16,
-    marginBottom: 20,
-    alignItems: "flex-start",
-  },
-  actionRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  actionTextBlue: {
-    color: "#0091FF", // Azul mais vivo e forte
-    fontSize: 14,
-    fontWeight: "700", // Mais bold
-  },
-  transferStatusContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-    gap: 6,
-    marginBottom: 25,
-  },
-  transferStatusText: {
-    color: "#A3A3A3",
-    fontSize: 14,
-  },
-  orderInfoContainer: {
-    width: "100%",
-    marginBottom: 30,
-  },
-  sectionTitle: {
-    color: "#FFF",
-    fontSize: 15,
-    fontWeight: "700",
-    marginBottom: 16,
-    alignSelf: "flex-start",
-  },
-  formGroup: {
-    marginBottom: 16,
-    width: "100%",
-  },
-  inputLabel: {
-    color: "#A3A3A3",
-    fontSize: 12,
-    fontWeight: "600",
-    marginBottom: 6,
-    alignSelf: "flex-start",
-  },
-  inputField: {
-    backgroundColor: "#1F1F1F",
-    borderRadius: 6,
-    paddingHorizontal: 12,
-    height: 44,
-    justifyContent: "center",
-  },
-  inputFieldRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  inputValue: {
-    color: "#E5E5E5",
+  gridValue: {
+    color: "#5f5f5f",
     fontSize: 14,
     fontWeight: "500",
   },
-  valorSection: {
-    marginTop: -8,
-    paddingTop: 0,
-    alignItems: "flex-start",
-  },
-  valorLabel: {
-    fontSize: 11,
-    color: "#8A8A8A",
-    fontWeight: "600",
-    marginBottom: 4,
-    letterSpacing: 0.3,
-  },
-
-  valorTipo: {
-    fontSize: 17,
-    fontWeight: "800",
-    color: "#111",
+  gridValueBold: {
+    color: "#5f5f5f",
+    fontSize: 14,
+    fontWeight: "700",
     textTransform: "uppercase",
-    marginBottom: 2,
   },
-
-  valorPreco: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#111",
+  customFooter: {
+    marginTop: 8,
+    marginBottom: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "rgba(111, 90, 75, 0.15)",
+    borderRadius: 12,
+  },
+  footerLink: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  footerLinkText: {
+    fontSize: 11,
+    fontWeight: "400",
+    color: "#bba99a",
+  },
+  footerButton: {
+    flex: 1,
+    backgroundColor: "rgba(111, 90, 75, 0.1)",
+    borderWidth: 1,
+    borderColor: "rgba(200, 182, 167, 0.4)",
+    borderRadius: 8,
+    paddingVertical: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  footerButtonText: {
+    fontSize: 11,
+    fontWeight: "400",
+    color: "#c8b6a7",
   },
 });
