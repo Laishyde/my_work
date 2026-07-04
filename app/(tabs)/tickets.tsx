@@ -1,4 +1,4 @@
-import { IconSymbol } from "@/components/ui/icon-symbol";
+import { Ionicons } from "@expo/vector-icons"; // 👈 Alterado para Ionicons para garantir que apareça
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -11,7 +11,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { LinearGradient } from "expo-linear-gradient"; // Certifique-se de ter instalado: expo install expo-linear-gradient
 
 const tickets = [
   {
@@ -90,9 +89,10 @@ export default function TicketsScreen() {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.back()}
+          onPress={() => router.replace("/")}
         >
-          <IconSymbol name="chevron.left" size={20} color="#9ca3af" />
+          {/* Seta visível usando Ionicons padrão do Expo */}
+          <Ionicons name="chevron-back" size={24} color="#9ca3af" /> 
         </TouchableOpacity>
         <View style={styles.headerTextContainer}>
           <Text style={styles.headerTitle} numberOfLines={1}>
@@ -133,7 +133,6 @@ export default function TicketsScreen() {
         {/* Ticket Físico Box */}
         <View style={styles.ticketCardWrapper}>
           
-          {/* Parte Superior: Gradiente Azul com Logo */}
           {/* Parte Superior: Imagem de Capa do Ingresso */}
           <View style={styles.ticketImageContainer}>
             <Image
@@ -311,10 +310,10 @@ const styles = StyleSheet.create({
     elevation: 8,
     marginBottom: 12,
   },
-ticketImageContainer: {
+  ticketImageContainer: {
     width: "100%",
-    height: 200, // Ajuste essa altura conforme a proporção real da sua imagem mobile
-    backgroundColor: "#026cdf", // Cor de fallback enquanto a imagem carrega
+    height: 200,
+    backgroundColor: "#026cdf",
   },
   ticketCoverImage: {
     width: "100%",

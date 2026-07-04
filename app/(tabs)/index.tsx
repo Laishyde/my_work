@@ -66,9 +66,9 @@ export default function HomeScreen() {
 
         {/* Abas (Tabs) */}
         <View style={styles.tabContainer}>
-          <TouchableOpacity
+         <TouchableOpacity
             style={[styles.tab, activeTab === "proximos" && styles.tabActive]}
-            onPress={() => setActiveTab("proximos")}
+            onPress={() => router.push("/tickets")} // 👈 Redireciona para a tela de tickets
             activeOpacity={0.9}
           >
             <Text style={[styles.tabText, activeTab === "proximos" && styles.tabTextActive]}>
