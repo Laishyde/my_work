@@ -85,7 +85,7 @@ export default function TicketsScreen() {
   const currentTicket = tickets[selectedTicket];
   const router = useRouter();
 
-  // Valor da animação para translação horizontal
+  // Valor da animação que vai de 0 a 1
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -93,21 +93,18 @@ export default function TicketsScreen() {
       animatedValue.setValue(0);
       Animated.timing(animatedValue, {
         toValue: 1,
-        duration: 6000, // Velocidade lenta e cadenciada conforme o vídeo
-        useNativeDriver: true,
+        duration: 6000, // Tempo do ciclo do QR code do Ticketmaster original
+        useNativeDriver: false, // Necessário false para animar a propriedade 'width' de porcentagem
       }).start(() => startAnimation());
     };
 
     startAnimation();
   }, [animatedValue]);
 
-  // Interpolação configurada da DIREITA para a ESQUERDA com margem maior (barra mais longa)
-  const cardWidth = SCREEN_WIDTH - 32; // Largura interna estimada do card
-  const barWidth = cardWidth * 0.8;    // A barra agora é mais longa (80% da largura do card)
-
-  const translateX = animatedValue.interpolate({
+  // Interpolação para fazer a barra diminuir (começa em 100% de largura e vai para 0%)
+  const barWidth = animatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [cardWidth, -barWidth], // Começa totalmente na direita e sai pela esquerda
+    outputRange: ["100%", "0%"],
   });
 
   return (
@@ -161,7 +158,7 @@ export default function TicketsScreen() {
         {/* Ticket Físico Box */}
         <View style={styles.ticketCardWrapper}>
           
-          {/* Parte Superior: Imagem de Capa do Ingresso com a linha inserida internamente */}
+          {/* Parte Superior: Imagem de Capa do Ingresso */}
           <View style={styles.ticketImageContainer}>
             <Image
               source={require("../../assets/images/ticket.png")}
@@ -169,14 +166,13 @@ export default function TicketsScreen() {
               resizeMode="cover"
             />
             
-            {/* LINHA VERDE-ÁGUA EM LOOP (Sobreposta diretamente à imagem, sem fundo preto) */}
+            {/* CONTAINER DA BARRA DE PROGRESSO */}
             <View style={styles.overlayBarContainer}>
               <Animated.View 
                 style={[
                   styles.progressBar, 
                   { 
-                    width: barWidth,
-                    transform: [{ translateX }] 
+                    width: barWidth, // Aplica a largura interpolada regressiva
                   }
                 ]} 
               />
@@ -355,7 +351,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     backgroundColor: "#026cdf",
-    position: "relative", // Permite posicionamento absoluto interno da barra
+    position: "relative",
   },
   ticketCoverImage: {
     width: "100%",
@@ -363,16 +359,15 @@ const styles = StyleSheet.create({
   },
   overlayBarContainer: {
     position: "absolute",
-    bottom: 0, // Encaixado perfeitamente no rodapé do banner azul
+    bottom: 0, 
     left: 0,
     right: 0,
-    height: 5,
-    backgroundColor: "transparent", // Sem fundo preto, transparente sobre o banner
-    overflow: "hidden",
+    height: 6, // Espessura exata da barra verde vista no vídeo
+    backgroundColor: "transparent",
   },
   progressBar: {
     height: "100%",
-    backgroundColor: "#00d2c4", // Verde-água idêntico ao original
+    backgroundColor: "#02e1c1", // O tom exato de verde-piscina/neon ultra brilhante do app original
   },
   whiteSection: {
     backgroundColor: "#ffffff",
