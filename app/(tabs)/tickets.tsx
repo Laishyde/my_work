@@ -1,6 +1,6 @@
-import { Ionicons } from "@expo/vector-icons"; // 👈 Alterado para Ionicons para garantir que apareça
+import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Image,
   SafeAreaView,
@@ -10,7 +10,11 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Animated,
+  Dimensions,
 } from "react-native";
+
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
 const tickets = [
   {
@@ -81,6 +85,31 @@ export default function TicketsScreen() {
   const currentTicket = tickets[selectedTicket];
   const router = useRouter();
 
+  // Valor da animação para translação horizontal
+  const animatedValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const startAnimation = () => {
+      animatedValue.setValue(0);
+      Animated.timing(animatedValue, {
+        toValue: 1,
+        duration: 6000, // Velocidade lenta e cadenciada conforme o vídeo
+        useNativeDriver: true,
+      }).start(() => startAnimation());
+    };
+
+    startAnimation();
+  }, [animatedValue]);
+
+  // Interpolação configurada da DIREITA para a ESQUERDA com margem maior (barra mais longa)
+  const cardWidth = SCREEN_WIDTH - 32; // Largura interna estimada do card
+  const barWidth = cardWidth * 0.8;    // A barra agora é mais longa (80% da largura do card)
+
+  const translateX = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [cardWidth, -barWidth], // Começa totalmente na direita e sai pela esquerda
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
@@ -91,7 +120,6 @@ export default function TicketsScreen() {
           style={styles.backButton}
           onPress={() => router.replace("/")}
         >
-          {/* Seta visível usando Ionicons padrão do Expo */}
           <Ionicons name="chevron-back" size={24} color="#9ca3af" /> 
         </TouchableOpacity>
         <View style={styles.headerTextContainer}>
@@ -133,13 +161,26 @@ export default function TicketsScreen() {
         {/* Ticket Físico Box */}
         <View style={styles.ticketCardWrapper}>
           
-          {/* Parte Superior: Imagem de Capa do Ingresso */}
+          {/* Parte Superior: Imagem de Capa do Ingresso com a linha inserida internamente */}
           <View style={styles.ticketImageContainer}>
             <Image
               source={require("../../assets/images/ticket.png")}
               style={styles.ticketCoverImage}
               resizeMode="cover"
             />
+            
+            {/* LINHA VERDE-ÁGUA EM LOOP (Sobreposta diretamente à imagem, sem fundo preto) */}
+            <View style={styles.overlayBarContainer}>
+              <Animated.View 
+                style={[
+                  styles.progressBar, 
+                  { 
+                    width: barWidth,
+                    transform: [{ translateX }] 
+                  }
+                ]} 
+              />
+            </View>
           </View>
 
           {/* Parte Central Branca: QR Code e Infos Principais */}
@@ -314,10 +355,24 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     backgroundColor: "#026cdf",
+    position: "relative", // Permite posicionamento absoluto interno da barra
   },
   ticketCoverImage: {
     width: "100%",
     height: "100%",
+  },
+  overlayBarContainer: {
+    position: "absolute",
+    bottom: 0, // Encaixado perfeitamente no rodapé do banner azul
+    left: 0,
+    right: 0,
+    height: 5,
+    backgroundColor: "transparent", // Sem fundo preto, transparente sobre o banner
+    overflow: "hidden",
+  },
+  progressBar: {
+    height: "100%",
+    backgroundColor: "#00d2c4", // Verde-água idêntico ao original
   },
   whiteSection: {
     backgroundColor: "#ffffff",
