@@ -4,13 +4,13 @@ import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 
 import {
-    Dimensions,
-    ScrollView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Dimensions,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 Dimensions.get("window");
@@ -75,7 +75,7 @@ export default function HomeScreen() {
           />
         </View>
 
-        {/* Eventim Pass Banner */}
+        {/* Eventim BR Pass Banner */}
         <View style={styles.heroContainer}>
           <ExpoImage
             source={require("../../assets/images/ticket.png")}

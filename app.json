@@ -1,14 +1,14 @@
 {
-  "name": "Quentro",
-  "slug": "TicketMasterApp",
+  "name": "Eventim BR",
+  "slug": "eventim-br",
   "version": "1.0.0",
   "orientation": "portrait",
   "icon": "./assets/images/eventin.png",
-  "scheme": "ticketmasterapp",
+  "scheme": "eventimbr",
   "userInterfaceStyle": "automatic",
   "ios": {
     "supportsTablet": true,
-    "bundleIdentifier": "com.ticketmasterapp.app",
+    "bundleIdentifier": "com.eventimbr.app",
     "icon": "./assets/images/eventin.png",
     "infoPlist": {
       "ITSAppUsesNonExemptEncryption": false
@@ -19,14 +19,14 @@
       "foregroundImage": "./assets/images/eventin.png",
       "backgroundColor": "#ffffff"
     },
-    "package": "com.ticketmasterapp.app",
+    "package": "com.eventimbr.app",
     "permissions": ["INTERNET", "ACCESS_NETWORK_STATE"]
   },
   "web": {
     "output": "static",
     "publicPath": "/",
     "favicon": "./assets/images/eventin.png",
-    "title": "Quentro"
+    "title": "Eventim BR"
   },
   "plugins": [
     "expo-router",
