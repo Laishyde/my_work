@@ -2,19 +2,22 @@ import { IconSymbol } from "@/components/ui/icon-symbol";
 import { Image as ExpoImage } from "expo-image";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
+
 import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Dimensions,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
+
+Dimensions.get("window");
 
 export default function HomeScreen() {
   const router = useRouter();
   const [, setCurrentTime] = useState("");
-  const [activeTab, setActiveTab] = useState<"proximos" | "anterior">("proximos");
 
   useEffect(() => {
     const updateTime = () => {
@@ -38,86 +41,82 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#000000" />
+      <StatusBar barStyle="light-content" backgroundColor="#0A1628" />
+
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.headerTop}>
+          <View style={styles.headerIcons}></View>
+        </View>
+
+        <View style={styles.headerMiddle}>
+          <View style={styles.logoContainer}>
+            <ExpoImage
+              source={require("../../assets/images/logo.png")}
+              style={styles.logoImage}
+            />
+          </View>
+          <TouchableOpacity style={styles.cartButton}>
+            <IconSymbol name="cart" size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <ScrollView
         style={styles.scrollView}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* Status Bar / Heart Icon Row */}
-        <View style={styles.statusBarRow}>
-          <IconSymbol name="heart.fill" size={18} color="#ffffff" />
+        {/* Hero Banner */}
+        <View style={styles.heroContainer}>
+          <ExpoImage
+            source={require("../../assets/images/mulher.png")}
+            style={styles.heroImage}
+          />
         </View>
 
-        {/* Header */}
-        <View style={styles.mainHeader}>
-          <Text style={styles.mainTitle}>Meus ingressos</Text>
-          
-          <View style={styles.headerIcons}>
-            <TouchableOpacity style={styles.iconButton}>
-              <IconSymbol name="bell" size={26} color="#ffffff" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <IconSymbol name="person.crop.circle" size={26} color="#ffffff" />
-            </TouchableOpacity>
-          </View>
+        {/* Eventim Pass Banner */}
+        <View style={styles.heroContainer}>
+          <ExpoImage
+            source={require("../../assets/images/ticket.png")}
+            style={styles.heroImage}
+          />
         </View>
 
-        {/* Abas (Tabs) */}
-        <View style={styles.tabContainer}>
-         <TouchableOpacity
-            style={[styles.tab, activeTab === "proximos" && styles.tabActive]}
-            onPress={() => router.push("/tickets")} // 👈 Redireciona para a tela de tickets
-            activeOpacity={0.9}
+        {/* Destaques Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Destaques</Text>
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.carousel}
+            contentContainerStyle={styles.carouselContent}
           >
-            <Text style={[styles.tabText, activeTab === "proximos" && styles.tabTextActive]}>
-              Próximos
-            </Text>
-          </TouchableOpacity>
+            {/* Ed Sheeran Card */}
+            <TouchableOpacity
+              style={styles.highlightCard}
+              onPress={() => handleEventPress("2")}
+              activeOpacity={0.8}
+            >
+              <ExpoImage
+                source={require("../../assets/images/lop.jpg")}
+                style={styles.cardImage}
+              />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.tab, activeTab === "anterior" && styles.tabActive]}
-            onPress={() => setActiveTab("anterior")}
-            activeOpacity={0.9}
-          >
-            <Text style={[styles.tabText, activeTab === "anterior" && styles.tabTextActive]}>
-              Anterior
-            </Text>
-          </TouchableOpacity>
+            {/* Hayley Williams Card */}
+            <TouchableOpacity
+              style={styles.highlightCard}
+              onPress={() => handleEventPress("3")}
+              activeOpacity={0.8}
+            >
+              <ExpoImage
+                source={require("../../assets/images/the.jpg")}
+                style={styles.cardImage}
+              />
+            </TouchableOpacity>
+          </ScrollView>
         </View>
-
-        {/* Seção / Divider de Mês */}
-        <Text style={styles.monthDivider}>Julho 2026</Text>
-
-        {/* Card de Ingresso - Jonas Brothers */}
-        <TouchableOpacity
-          style={styles.ticketCard}
-          onPress={() => handleEventPress("jonas-brothers")}
-          activeOpacity={0.8}
-        >
-          <View style={styles.eventImageContainer}>
-            <ExpoImage
-              source={require("../../assets/images/lop.jpg")}
-              style={styles.eventImage}
-            />
-          </View>
-
-          <View style={styles.eventInfo}>
-            <View style={styles.ticketMeta}>
-              <Text style={styles.ticketCount}>4 ingressos</Text>
-              <Text style={styles.eventDate}>Sábado 04 • 19:30h</Text>
-            </View>
-
-            <Text style={styles.eventTitle} numberOfLines={2}>
-              ENHYPEN WORLD TOUR ‘BLOOD SAGA’
-            </Text>
-
-            <Text style={styles.eventLocation} numberOfLines={1}>
-              Nubank parque 
-            </Text>
-          </View>
-        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -126,143 +125,187 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000000",
+    backgroundColor: "#0A1628",
+  },
+  header: {
+    backgroundColor: "#0A1628",
+    paddingHorizontal: 20,
+    paddingTop: 50,
+    paddingBottom: 16,
+  },
+  headerTop: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  time: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#fff",
+  },
+  headerIcons: {
+    flexDirection: "row",
+    gap: 8,
+  },
+  headerMiddle: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  logoContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    marginLeft: -180,
+  },
+  logoImage: {
+    width: 480,
+    height: 100,
+    resizeMode: "contain",
+  },
+  logoText: {
+    fontSize: 28,
+    fontWeight: "700",
+    color: "#fff",
+  },
+  cartButton: {
+    padding: 8,
   },
   scrollView: {
     flex: 1,
   },
   scrollContent: {
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 24,
+    paddingBottom: 0,
   },
-  statusBarRow: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    paddingVertical: 8,
-    paddingHorizontal: 2,
-  },
-  mainHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 2,
-    marginBottom: 8,
-  },
-  mainTitle: {
-    fontSize: 32,
-    fontWeight: "900",
-    color: "#ffffff",
-    letterSpacing: -1.5,
-  },
-  headerIcons: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 18,
-  },
-  iconButton: {
-    padding: 2,
-  },
-  tabContainer: {
-    flexDirection: "row",
-    backgroundColor: "#1a1a1a",
-    marginVertical: 16,
-    borderRadius: 18,
-    padding: 5,
-    width: "100%",
-  },
-  tab: {
-    flex: 1,
-    textAlign: "center",
-    paddingVertical: 12,
-    borderRadius: 14,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  tabActive: {
-    backgroundColor: "#ffffff",
-    shadowColor: "#ffffff",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 2,
-  },
-  tabText: {
-    fontSize: 15,
-    fontWeight: "600",
-    color: "#888888",
-  },
-  tabTextActive: {
-    color: "#000000",
-  },
-  monthDivider: {
-    paddingHorizontal: 2,
-    paddingTop: 24,
-    paddingBottom: 14,
-    fontSize: 22,
-    fontWeight: "800",
-    color: "#ffffff",
-    letterSpacing: -0.5,
-  },
-  ticketCard: {
-    flexDirection: "row",
-    padding: 14,
-    alignItems: "center",
-    gap: 14,
-    borderRadius: 18,
-    backgroundColor: "#111111",
-    marginBottom: 18,
-  },
-  eventImageContainer: {
-    width: 105,
-    height: 105,
-    borderRadius: 14,
-    backgroundColor: "#ffffff",
+  heroContainer: {
+    marginHorizontal: 16,
+    marginBottom: 16,
+    borderRadius: 16,
     overflow: "hidden",
-    flexShrink: 0,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.5,
-    shadowRadius: 24,
-    elevation: 6,
+    height: 200,
   },
-  eventImage: {
+  heroImage: {
     width: "100%",
     height: "100%",
   },
-  eventInfo: {
-    flex: 1,
-    justifyContent: "center",
+  ticketImage: {
+    width: 60,
+    height: 60,
+    resizeMode: "contain",
   },
-  ticketMeta: {
-    flexDirection: "column",
-    gap: 2,
-    marginBottom: 6,
+  cardImage: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 12,
+    marginBottom: 8,
   },
-  ticketCount: {
-    color: "#40e0d0",
-    fontSize: 13,
-    fontWeight: "700",
+  heroOverlay: {
+    position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 16,
+    justifyContent: "flex-end",
   },
-  eventDate: {
-    color: "#888888",
-    fontSize: 13,
-    fontWeight: "500",
+  heroTextBox: {
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    borderRadius: 12,
+    padding: 16,
   },
-  eventTitle: {
-    fontSize: 20,
-    fontWeight: "900",
-    color: "#ffffff",
-    lineHeight: 24,
+  heroTextSmall: {
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#333",
     marginBottom: 4,
-    textTransform: "uppercase",
-    letterSpacing: -0.5,
   },
-  eventLocation: {
-    color: "#b0b0b0",
-    fontSize: 15,
-    fontWeight: "500",
+  heroTextMedium: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 4,
+  },
+  heroTextLarge: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#333",
+  },
+  passBanner: {
+    marginHorizontal: 16,
+    marginBottom: 24,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 16,
+    flexDirection: "row",
+    alignItems: "center",
+    position: "relative",
+  },
+  passCutout: {
+    position: "absolute",
+    left: -12,
+    top: "50%",
+    transform: [{ translateY: -12 }],
+    width: 24,
+    height: 24,
+    backgroundColor: "#0A1628",
+    borderRadius: 12,
+  },
+  passContent: {
+    flex: 1,
+    marginLeft: 16,
+  },
+  passLogo: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    marginBottom: 4,
+  },
+  passLogoText: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#000",
+  },
+  passSubtitle: {
+    fontSize: 12,
+    color: "#666",
+  },
+  section: {
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: "#fff",
+    marginBottom: 16,
+    paddingHorizontal: 20,
+  },
+  carousel: {
+    marginBottom: 8,
+  },
+  carouselContent: {
+    gap: 12,
+    paddingHorizontal: 20,
+  },
+  highlightCard: {
+    width: 280,
+    height: 280,
+    borderRadius: 16,
+    padding: 16,
+    justifyContent: "space-between",
+  },
+  highlightCardTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#fff",
+  },
+  highlightCardSubtitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#fff",
+  },
+  highlightCardArtist: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "#000",
   },
 });
