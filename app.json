@@ -1,32 +1,32 @@
 {
-  "name": "Eventim BR",
-  "slug": "eventim-br",
+  "name": "Quentro",
+  "slug": "quentro",
   "version": "1.0.0",
   "orientation": "portrait",
-  "icon": "./assets/images/eventin.png",
-  "scheme": "eventimbr",
+  "icon": "./assets/images/icon.png",
+  "scheme": "quentro",
   "userInterfaceStyle": "automatic",
   "ios": {
     "supportsTablet": true,
-    "bundleIdentifier": "com.eventimbr.app",
-    "icon": "./assets/images/eventin.png",
+    "bundleIdentifier": "com.quentro.app",
+    "icon": "./assets/images/icon.png",
     "infoPlist": {
       "ITSAppUsesNonExemptEncryption": false
     }
   },
   "android": {
     "adaptiveIcon": {
-      "foregroundImage": "./assets/images/eventin.png",
+      "foregroundImage": "./assets/images/icon.png",
       "backgroundColor": "#ffffff"
     },
-    "package": "com.eventimbr.app",
+    "package": "com.quentro.app",
     "permissions": ["INTERNET", "ACCESS_NETWORK_STATE"]
   },
   "web": {
     "output": "static",
     "publicPath": "/",
-    "favicon": "./assets/images/eventin.png",
-    "title": "Eventim BR"
+    "favicon": "./assets/images/icon.png",
+    "title": "Quentro"
   },
   "plugins": [
     "expo-router",

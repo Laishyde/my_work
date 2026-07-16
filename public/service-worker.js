@@ -1,6 +1,6 @@
-const CACHE_NAME = "eventim-br-v2";
-const STATIC_CACHE = "eventim-br-static-v1";
-const RUNTIME_CACHE = "eventim-br-runtime-v1";
+const CACHE_NAME = "quentro-v2";
+const STATIC_CACHE = "quentro-static-v1";
+const RUNTIME_CACHE = "quentro-runtime-v1";
 
 // Assets to cache immediately on install
 const PRECACHE_ASSETS = [

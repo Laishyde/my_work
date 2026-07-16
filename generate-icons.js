@@ -1,7 +1,7 @@
 const sharp = require('sharp');
 const path = require('path');
 
-const sourceImage = './assets/images/eventin.jpg';
+const sourceImage = './assets/images/quentro.jpg';
 const outputDir = './public';
 
 async function generateIcons() {
