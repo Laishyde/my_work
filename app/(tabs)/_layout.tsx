@@ -11,7 +11,7 @@ export default function TabLayout() {
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarStyle: {
-          display: "flex",
+          display: "none", // Oculta completamente a barra de navegação inferior
         },
         tabBarActiveTintColor: "#EAB308",
         tabBarInactiveTintColor: "#888",
