@@ -11,10 +11,43 @@ import {
   View,
 } from "react-native";
 
+// Função idêntica para manter as datas sincronizadas no aplicativo inteiro
+const getDynamicShowDate = () => {
+  const today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.getMonth(); // 6 é Julho
+  const currentYear = today.getFullYear();
+
+  let showDay = 17;
+  let dayOfWeek = "Sexta-feira";
+
+  if (currentYear === 2026 && currentMonth === 6) {
+    if (currentDay <= 17) {
+      showDay = 17;
+      dayOfWeek = "Sexta-feira";
+    } else if (currentDay === 18) {
+      showDay = 18;
+      dayOfWeek = "Sábado";
+    } else if (currentDay >= 19 && currentDay <= 21) {
+      showDay = 21;
+      dayOfWeek = "Terça-feira";
+    } else {
+      showDay = 24;
+      dayOfWeek = "Sexta-feira";
+    }
+  } else {
+    showDay = 17;
+    dayOfWeek = "Sexta-feira";
+  }
+
+  return `${dayOfWeek} ${showDay} • 20:45h`;
+};
+
 export default function HomeScreen() {
   const router = useRouter();
   const [, setCurrentTime] = useState("");
   const [activeTab, setActiveTab] = useState<"proximos" | "anterior">("proximos");
+  const [dynamicDate, setDynamicDate] = useState(getDynamicShowDate());
 
   useEffect(() => {
     const updateTime = () => {
@@ -26,6 +59,8 @@ export default function HomeScreen() {
           hour12: false,
         }),
       );
+      // Atualiza a data do show caso vire o dia com o app aberto
+      setDynamicDate(getDynamicShowDate());
     };
     updateTime();
     const interval = setInterval(updateTime, 60000);
@@ -90,7 +125,7 @@ export default function HomeScreen() {
         {/* Seção / Divider de Mês */}
         <Text style={styles.monthDivider}>Julho 2026</Text>
 
-        {/* Card de Ingresso - Jonas Brothers */}
+        {/* Card de Ingresso */}
         <TouchableOpacity
           style={styles.ticketCard}
           onPress={() => handleEventPress("harry-styles")}
@@ -106,7 +141,8 @@ export default function HomeScreen() {
           <View style={styles.eventInfo}>
             <View style={styles.ticketMeta}>
               <Text style={styles.ticketCount}>8 ingressos</Text>
-              <Text style={styles.eventDate}>Sexta-feira 17 • 20:45h</Text>
+              {/* Renderização dinâmica aplicada aqui abaixo */}
+              <Text style={styles.eventDate}>{dynamicDate}</Text>
             </View>
 
             <Text style={styles.eventTitle} numberOfLines={2}>
@@ -114,7 +150,7 @@ export default function HomeScreen() {
             </Text>
 
             <Text style={styles.eventLocation} numberOfLines={1}>
-             Estádio do Morumbis
+              Estádio do MorumBIS
             </Text>
           </View>
         </TouchableOpacity>

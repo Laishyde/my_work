@@ -19,14 +19,54 @@ import {
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = SCREEN_WIDTH * 0.9; 
 
+// Função para obter as informações do show baseado na data atual (Julho de 2026)
+const getDynamicShowDate = () => {
+  const today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.getMonth(); // 6 é Julho
+  const currentYear = today.getFullYear();
+
+  // Definindo o dia do show padrão com base no dia atual
+  let showDay = 17;
+  let dayOfWeek = "Sexta-feira";
+
+  // Se estivermos em Julho de 2026 (ou se quiser forçar para testes)
+  if (currentYear === 2026 && currentMonth === 6) {
+    if (currentDay <= 17) {
+      showDay = 17;
+      dayOfWeek = "Sexta-feira";
+    } else if (currentDay === 18) {
+      showDay = 18;
+      dayOfWeek = "Sábado";
+    } else if (currentDay >= 19 && currentDay <= 21) {
+      showDay = 21;
+      dayOfWeek = "Terça-feira";
+    } else {
+      showDay = 24;
+      dayOfWeek = "Sexta-feira";
+    }
+  } else {
+    // Fallback caso não seja o mês correto (Mantém o de hoje/amanhã configurado para 17)
+    showDay = 17;
+    dayOfWeek = "Sexta-feira";
+  }
+
+  return {
+    data: `${dayOfWeek} · ${showDay}/jul/26 · 20:45`,
+    headerData: `${showDay.toString().padStart(2, '0')}/07/2026 - Estádio do MorumBIS`
+  };
+};
+
+const dynamicDateInfo = getDynamicShowDate();
+
 const tickets = [
   {
     id: 1,
     tab: "Ingresso 1",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "ARQUIBANCADA",
     secao: "SUPERIOR",
     entrada: "PORTÃO 06, 15",
@@ -39,9 +79,9 @@ const tickets = [
     id: 2,
     tab: "Ingresso 2",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "PISTA",
     secao: "PISTA",
     entrada: "PORTÃO 02, 04, 08",
@@ -54,9 +94,9 @@ const tickets = [
     id: 3,
     tab: "Ingresso 3",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "CADEIRA SUPERIOR",
     secao: "SUPERIOR",
     entrada: "PORTÃO 05, 16",
@@ -69,9 +109,9 @@ const tickets = [
     id: 4,
     tab: "Ingresso 4",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "CADEIRA INFERIOR",
     secao: "INFERIOR",
     entrada: "PORTÃO 02, 17, 18",
@@ -84,9 +124,9 @@ const tickets = [
     id: 5,
     tab: "Ingresso 5",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "PIT CIRCLE",
     secao: "PREMIUM",
     entrada: "PORTÃO 02",
@@ -99,9 +139,9 @@ const tickets = [
     id: 6,
     tab: "Ingresso 6",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "PIT DISCO",
     secao: "PREMIUM",
     entrada: "PORTÃO 18",
@@ -114,9 +154,9 @@ const tickets = [
     id: 7,
     tab: "Ingresso 7",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "PIT KISS",
     secao: "PREMIUM",
     entrada: "PORTÃO 02",
@@ -129,9 +169,9 @@ const tickets = [
     id: 8,
     tab: "Ingresso 8",
     evento: "HARRY STYLES",
-    data: "Sexta-feira · 17/jul/26 · 20:45",
-    headerData: "17/07/2026 - Estádio do Morumbis",
-    local: "Estádio do Morumbis",
+    data: dynamicDateInfo.data,
+    headerData: dynamicDateInfo.headerData,
+    local: "Estádio do MorumBIS",
     setor: "PIT SQUARE",
     secao: "PREMIUM",
     entrada: "PORTÃO 16",
@@ -147,7 +187,6 @@ export default function TicketsScreen() {
   const currentTicket = tickets[selectedTicket];
   const router = useRouter();
 
-  // 👉 Solução do Erro 1: Definindo explicitamente o tipo do ScrollView nos refs
   const ticketScrollRef = useRef<ScrollView>(null);
   const tabsScrollRef = useRef<ScrollView>(null);
   const animatedValue = useRef(new Animated.Value(0)).current;
@@ -169,13 +208,11 @@ export default function TicketsScreen() {
     outputRange: ["100%", "0%"],
   });
 
-  // 👉 Solução do Erro 2: Tipagem explícita para o evento de scroll
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const contentOffset = event.nativeEvent.contentOffset.x;
     const index = Math.round(contentOffset / SCREEN_WIDTH);
     if (index >= 0 && index < tickets.length && index !== selectedTicket) {
       setSelectedTicket(index);
-      // Desloca as abas superiores suavemente para acompanhar o gesto
       tabsScrollRef.current?.scrollTo({
         x: index * 90 - 40,
         animated: true,
@@ -183,7 +220,6 @@ export default function TicketsScreen() {
     }
   };
 
-  // 👉 Solução do Erro 2: Tipagem explícita do parâmetro 'index'
   const handleTabPress = (index: number) => {
     setSelectedTicket(index);
     ticketScrollRef.current?.scrollTo({
@@ -240,19 +276,6 @@ export default function TicketsScreen() {
         </ScrollView>
       </View>
 
-      {/* Indicador de Bolinhas (Dots) */}
-      <View style={styles.dotsContainer}>
-        {tickets.map((_, index) => (
-          <View 
-            key={index} 
-            style={[
-              styles.dot, 
-              selectedTicket === index ? styles.activeDot : styles.inactiveDot
-            ]} 
-          />
-        ))}
-      </View>
-
       {/* Scroll de Ingressos (Horizontal / Swipable) */}
       <ScrollView
         ref={ticketScrollRef}
@@ -280,7 +303,6 @@ export default function TicketsScreen() {
                     style={[
                       styles.progressBar, 
                       { 
-                        // Aplica a animação apenas no card ativo para economizar performance
                         width: selectedTicket === index ? barWidth : "100%", 
                       }
                     ]} 
@@ -349,7 +371,7 @@ export default function TicketsScreen() {
                   </View>
                   <View style={styles.gridItem}>
                     <Text style={styles.gridLabel}>Início</Text>
-                    <Text style={styles.gridValue}>20:45</Text>
+                    <Text style={styles.gridValue}>{ticket.data.split(' · ')[2] || "20:45"}</Text>
                   </View>
                 </View>
               </View>
@@ -372,7 +394,6 @@ export default function TicketsScreen() {
   );
 }
 
-// 👉 Adicionado os estilos que faltavam para as bolinhas (dots) não quebrarem o layout
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -429,25 +450,6 @@ const styles = StyleSheet.create({
   activeTabText: {
     color: "#026cdf",
   },
-  dotsContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginVertical: 10,
-  },
-  dot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    marginHorizontal: 3,
-  },
-  activeDot: {
-    backgroundColor: "#026cdf",
-    width: 12, // Destaque para a bolinha ativa
-  },
-  inactiveDot: {
-    backgroundColor: "#4b5563",
-  },
   ticketsHorizontalScroll: {
     flex: 1,
   },
@@ -455,6 +457,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH, 
     alignItems: "center",
     justifyContent: "flex-start",
+    marginTop: 10,
   },
   ticketCardWrapper: {
     width: CARD_WIDTH, 
