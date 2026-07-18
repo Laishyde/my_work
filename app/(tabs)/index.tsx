@@ -1,4 +1,4 @@
-import { IconSymbol } from "@/components/ui/icon-symbol";
+import { Ionicons } from "@expo/vector-icons";
 import { Image as ExpoImage } from "expo-image";
 import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 
-// Função idêntica para manter as datas sincronizadas no aplicativo inteiro
+// Função com a sua lógica idêntica e intacta, apenas corrigindo a string de exibição
 const getDynamicShowDate = () => {
   const today = new Date();
   const currentDay = today.getDate();
@@ -40,7 +40,8 @@ const getDynamicShowDate = () => {
     dayOfWeek = "Sexta-feira";
   }
 
-  return `${dayOfWeek} ${showDay} • 20:45h`;
+  // AJUSTE AQUI: Agora exibe o dia (ex: Sábado, 18) na interface mantendo sua lógica intacta
+  return `${dayOfWeek}, ${showDay} • 20:45h`;
 };
 
 export default function HomeScreen() {
@@ -59,7 +60,6 @@ export default function HomeScreen() {
           hour12: false,
         }),
       );
-      // Atualiza a data do show caso vire o dia com o app aberto
       setDynamicDate(getDynamicShowDate());
     };
     updateTime();
@@ -80,30 +80,26 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        {/* Status Bar / Heart Icon Row */}
-        <View style={styles.statusBarRow}>
-          <IconSymbol name="heart.fill" size={18} color="#ffffff" />
-        </View>
-
-        {/* Header */}
+        {/* Header com os Ícones Menores na cor da data e sem coração */}
         <View style={styles.mainHeader}>
           <Text style={styles.mainTitle}>Meus ingressos</Text>
           
           <View style={styles.headerIcons}>
-            <TouchableOpacity style={styles.iconButton}>
-              <IconSymbol name="bell" size={26} color="#ffffff" />
+            <TouchableOpacity style={styles.iconButton} activeOpacity={0.7}>
+              <Ionicons name="notifications-outline" size={20} color="#8e8e93" />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.iconButton}>
-              <IconSymbol name="person.crop.circle" size={26} color="#ffffff" />
+
+            <TouchableOpacity style={styles.iconButton} activeOpacity={0.7}>
+              <Ionicons name="person-outline" size={20} color="#8e8e93" />
             </TouchableOpacity>
           </View>
         </View>
 
         {/* Abas (Tabs) */}
         <View style={styles.tabContainer}>
-         <TouchableOpacity
+          <TouchableOpacity
             style={[styles.tab, activeTab === "proximos" && styles.tabActive]}
-            onPress={() => router.push("/tickets")} // 👈 Redireciona para a tela de tickets
+            onPress={() => router.push("/tickets")}
             activeOpacity={0.9}
           >
             <Text style={[styles.tabText, activeTab === "proximos" && styles.tabTextActive]}>
@@ -122,9 +118,6 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Seção / Divider de Mês */}
-        <Text style={styles.monthDivider}>Julho 2026</Text>
-
         {/* Card de Ingresso */}
         <TouchableOpacity
           style={styles.ticketCard}
@@ -136,21 +129,25 @@ export default function HomeScreen() {
               source={require("../../assets/images/lop.jpg")}
               style={styles.eventImage}
             />
+            <View style={styles.tagAgora}>
+              <Text style={styles.tagAgoraText}>AGORA</Text>
+            </View>
           </View>
 
           <View style={styles.eventInfo}>
             <View style={styles.ticketMeta}>
               <Text style={styles.ticketCount}>8 ingressos</Text>
-              {/* Renderização dinâmica aplicada aqui abaixo */}
+              <Text style={styles.dotSeparator}>•</Text>
+              {/* Exibirá dinamicamente no layout: "Sábado, 18 • 20:45h" */}
               <Text style={styles.eventDate}>{dynamicDate}</Text>
             </View>
 
             <Text style={styles.eventTitle} numberOfLines={2}>
-              Harry Styles
+              Harry Styles: Together, Together
             </Text>
 
             <Text style={styles.eventLocation} numberOfLines={1}>
-              Estádio do MorumBIS
+              MorumBIS
             </Text>
           </View>
         </TouchableOpacity>
@@ -168,16 +165,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingHorizontal: 16,
-    paddingTop: 12,
+    paddingHorizontal: 24,
+    paddingTop: 24,
     paddingBottom: 24,
-  },
-  statusBarRow: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    paddingVertical: 8,
-    paddingHorizontal: 2,
   },
   mainHeader: {
     flexDirection: "row",
@@ -188,117 +178,113 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   mainTitle: {
-    fontSize: 32,
-    fontWeight: "900",
+    fontSize: 26,
+    fontWeight: "800",
     color: "#ffffff",
-    letterSpacing: -1.5,
+    letterSpacing: -0.5,
   },
   headerIcons: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 18,
+    gap: 16,
   },
   iconButton: {
-    padding: 2,
+    backgroundColor: "transparent",
+    padding: 4,
   },
   tabContainer: {
     flexDirection: "row",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#1c1c1e",
     marginVertical: 16,
-    borderRadius: 18,
-    padding: 5,
+    borderRadius: 12,
+    padding: 3,
     width: "100%",
   },
   tab: {
     flex: 1,
-    textAlign: "center",
-    paddingVertical: 12,
-    borderRadius: 14,
+    paddingVertical: 10,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
   },
   tabActive: {
     backgroundColor: "#ffffff",
-    shadowColor: "#ffffff",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 2,
   },
   tabText: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: "600",
-    color: "#888888",
+    color: "#8e8e93",
   },
   tabTextActive: {
     color: "#000000",
   },
-  monthDivider: {
-    paddingHorizontal: 2,
-    paddingTop: 24,
-    paddingBottom: 14,
-    fontSize: 22,
-    fontWeight: "800",
-    color: "#ffffff",
-    letterSpacing: -0.5,
-  },
   ticketCard: {
-    flexDirection: "row",
-    padding: 14,
-    alignItems: "center",
-    gap: 14,
-    borderRadius: 18,
-    backgroundColor: "#111111",
-    marginBottom: 18,
+    flexDirection: "column",
+    borderRadius: 24,
+    backgroundColor: "#1c1c1e",
+    overflow: "hidden",
+    marginTop: 10,
+    paddingBottom: 20,
   },
   eventImageContainer: {
-    width: 105,
-    height: 105,
-    borderRadius: 14,
-    backgroundColor: "#ffffff",
-    overflow: "hidden",
-    flexShrink: 0,
-    shadowColor: "#000000",
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.5,
-    shadowRadius: 24,
-    elevation: 6,
+    width: "100%",
+    height: 310,
+    backgroundColor: "#2c2c2e",
+    position: "relative",
   },
   eventImage: {
     width: "100%",
     height: "100%",
+    resizeMode: "cover",
+  },
+  tagAgora: {
+    position: "absolute",
+    bottom: 14,
+    left: 14,
+    backgroundColor: "#00bfa5",
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  tagAgoraText: {
+    color: "#ffffff",
+    fontSize: 10,
+    fontWeight: "800",
   },
   eventInfo: {
-    flex: 1,
-    justifyContent: "center",
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
   ticketMeta: {
-    flexDirection: "column",
-    gap: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
     marginBottom: 6,
   },
   ticketCount: {
-    color: "#40e0d0",
-    fontSize: 13,
-    fontWeight: "700",
+    color: "#00bfa5",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  dotSeparator: {
+    color: "#8e8e93",
+    fontSize: 12,
   },
   eventDate: {
-    color: "#888888",
-    fontSize: 13,
-    fontWeight: "500",
+    color: "#8e8e93",
+    fontSize: 12,
+    fontWeight: "600",
   },
   eventTitle: {
-    fontSize: 20,
-    fontWeight: "900",
+    fontSize: 18,
+    fontWeight: "700",
     color: "#ffffff",
-    lineHeight: 24,
+    lineHeight: 22,
     marginBottom: 4,
-    textTransform: "uppercase",
-    letterSpacing: -0.5,
   },
   eventLocation: {
-    color: "#b0b0b0",
-    fontSize: 15,
+    color: "#8e8e93",
+    fontSize: 14,
     fontWeight: "500",
   },
 });
