@@ -62,7 +62,7 @@ const dynamicDateInfo = getDynamicShowDate();
 const tickets = [
   {
     id: 1,
-    tab: "Ingresso 1",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -77,7 +77,7 @@ const tickets = [
   },
   {
     id: 2,
-    tab: "Ingresso 2",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -92,7 +92,7 @@ const tickets = [
   },
   {
     id: 3,
-    tab: "Ingresso 3",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -107,7 +107,7 @@ const tickets = [
   },
   {
     id: 4,
-    tab: "Ingresso 4",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -122,7 +122,7 @@ const tickets = [
   },
   {
     id: 5,
-    tab: "Ingresso 5",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -137,7 +137,7 @@ const tickets = [
   },
   {
     id: 6,
-    tab: "Ingresso 6",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -152,7 +152,7 @@ const tickets = [
   },
   {
     id: 7,
-    tab: "Ingresso 7",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -167,7 +167,7 @@ const tickets = [
   },
   {
     id: 8,
-    tab: "Ingresso 8",
+    tab: "",
     evento: "HARRY STYLES",
     data: dynamicDateInfo.data,
     headerData: dynamicDateInfo.headerData,
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "transparent",
   },
   activeTab: {
-    borderBottomColor: "#026cdf",
+    borderBottomColor: "transparent",
   },
   tabText: {
     color: "#666",
@@ -620,4 +620,5 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     color: "#c8b6a7",
   },
+  
 });
